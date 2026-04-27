@@ -1,0 +1,37 @@
+name: Test GitHub Packages Install
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:   # lets you trigger manually from Actions tab
+
+jobs:
+  install-package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read    # critical — grants GITHUB_TOKEN access to packages
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@teh-tech-tigers'
+
+      - name: Install dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify package installed
+        run: |
+          echo "Installed packages:"
+          npm list @teh-tech-tigers/package-cli
+          echo "Package contents:"
+          ls node_modules/@teh-tech-tigers/package-cli/

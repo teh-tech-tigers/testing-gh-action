@@ -1,0 +1,8 @@
+{
+  "name": "testing-gh-action-consumer",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@teh-tech-tigers/package-cli": "^1.0.0"
+  }
+}
