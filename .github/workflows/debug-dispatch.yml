@@ -1,0 +1,16 @@
+# .github/workflows/debug-dispatch.yml
+name: Debug Dispatch
+
+
+on:
+ pull_request:
+   types: [opened, synchronize, labeled, unlabeled, ready_for_review]
+
+
+jobs:
+ debug:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Debug dispatch
+       run: |
+         echo "Repository dispatch triggered!"
